@@ -1,120 +1,296 @@
 {
-    "name": "@salesforce/sfdx-plugin-lwc-test",
-    "description": "Tools for unit testing Lightning web components in a Salesforce DX workspace",
-    "version": "1.0.2",
-    "main": "lib/index.js",
+    "name": "@salesforce/plugin-release-management",
+    "description": "A plugin for preparing and publishing npm packages",
+    "version": "3.16.8",
+    "author": "Salesforce",
+    "bugs": "https://github.com/forcedotcom/cli/issues",
+    "bin": {
+        "sf-release": "bin/run"
+    },
     "dependencies": {
-        "@oclif/core": "^1.16.0",
-        "@salesforce/command": "^5.2.6",
-        "@salesforce/core": "^3.26.2",
-        "@salesforce/kit": "^1.6.0",
-        "semver-compare": "^1.0.0",
-        "signal-exit": "^3.0.6",
-        "tslib": "^2.3.1"
+        "@oclif/core": "^2.8.0",
+        "@octokit/core": "^4.2.0",
+        "@octokit/plugin-paginate-rest": "^6.0.0",
+        "@octokit/plugin-throttling": "^5.0.1",
+        "@salesforce/core": "^3.33.5",
+        "@salesforce/kit": "^1.9.2",
+        "@salesforce/plugin-command-reference": "^2.4.1",
+        "@salesforce/plugin-trust": "^2.4.2",
+        "@salesforce/sf-plugins-core": "^2.2.4",
+        "@salesforce/ts-types": "^1.7.3",
+        "agent-base": "^6.0.2",
+        "aws-sdk": "^2.1359.0",
+        "chalk": "^4.1.0",
+        "conventional-changelog-conventionalcommits": "^4.6.1",
+        "conventional-changelog-preset-loader": "^2.3.4",
+        "conventional-commits-parser": "^3.2.2",
+        "fast-glob": "^3.2.12",
+        "got": "^11.8.6",
+        "just-diff": "^5.2.0",
+        "proxy-agent": "^5.0.0",
+        "proxy-from-env": "^1.1.0",
+        "semver": "^7.4.0",
+        "shelljs": "^0.8.4",
+        "standard-version": "^9.0.0",
+        "tslib": "^2",
+        "yarn-deduplicate": "^3.1.0"
     },
     "devDependencies": {
-        "@oclif/plugin-command-snapshot": "^3.1.3",
-        "@oclif/plugin-commands": "^2.1.0",
-        "@oclif/plugin-help": "^5.1.12",
-        "@salesforce/cli-plugins-testkit": "^2.3.13",
-        "@salesforce/dev-config": "^3.1.0",
-        "@salesforce/dev-scripts": "^3.1.0",
-        "@salesforce/plugin-command-reference": "^1.4.0",
+        "@oclif/plugin-command-snapshot": "^3.3.10",
+        "@salesforce/dev-config": "^3.0.0",
+        "@salesforce/dev-scripts": "^4.3.0",
         "@salesforce/prettier-config": "^0.0.2",
-        "@salesforce/ts-sinon": "^1.3.20",
-        "@salesforce/ts-types": "^1.5.19",
-        "@types/node": "^18.7.14",
-        "@types/semver-compare": "^1.0.1",
-        "@types/shelljs": "^0.8.11",
-        "@types/signal-exit": "^3.0.1",
-        "@typescript-eslint/eslint-plugin": "^5.36.1",
-        "@typescript-eslint/parser": "^5.36.1",
-        "chai": "^4.3.4",
-        "eslint": "^8.23.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-config-salesforce": "^1.1.0",
-        "eslint-config-salesforce-license": "^0.1.6",
+        "@salesforce/ts-sinon": "1.4.6",
+        "@swc/core": "^1.3.37",
+        "@types/conventional-changelog-preset-loader": "^2.3.2",
+        "@types/conventional-commits-parser": "^3.0.3",
+        "@types/semver": "^7.3.9",
+        "@types/shelljs": "^0.8.8",
+        "@typescript-eslint/eslint-plugin": "^5.40.1",
+        "@typescript-eslint/parser": "^5.54.1",
+        "aws-sdk-mock": "^5.8.0",
+        "chai": "^4.3.7",
+        "eslint": "^8.38.0",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-config-salesforce": "^1.1.1",
+        "eslint-config-salesforce-license": "^0.2.0",
         "eslint-config-salesforce-typescript": "^1.1.1",
         "eslint-plugin-header": "^3.0.0",
-        "eslint-plugin-import": "2.26.0",
-        "eslint-plugin-jsdoc": "^39.3.6",
-        "eslint-plugin-prettier": "^4.2.1",
-        "husky": "^8.0.1",
-        "isbinaryfile": "^5.0.0",
-        "mocha": "^10.0.0",
+        "eslint-plugin-import": "2.27.5",
+        "eslint-plugin-jsdoc": "^39.6.7",
+        "eslint-plugin-sf-plugin": "^1.8.1",
+        "husky": "^7.0.4",
+        "mocha": "^9.1.3",
         "nyc": "^15.1.0",
-        "oclif": "^3.1.2",
-        "prettier": "^2.0.5",
+        "oclif": "^3.7.0",
+        "prettier": "^2.8.7",
         "pretty-quick": "^3.1.0",
-        "sinon": "^14.0.0",
-        "ts-node": "^10.9.1",
-        "typescript": "^4.8.2"
+        "shx": "0.3.4",
+        "sinon": "10.0.0",
+        "ts-node": "^10.0.0",
+        "typescript": "^4.9.4",
+        "wireit": "^0.9.5"
     },
+    "config": {},
     "engines": {
         "node": ">=14.0.0"
     },
     "files": [
+        "bin",
+        "oclif.manifest.json",
         "/lib",
-        "/messages",
-        "/oclif.manifest.json"
+        "/messages"
     ],
+    "homepage": "https://github.com/salesforcecli/plugin-release-management",
     "keywords": [
+        "force",
+        "salesforce",
+        "sfdx",
+        "salesforcedx",
         "sfdx-plugin"
     ],
     "license": "BSD-3-Clause",
     "oclif": {
-        "bin": "sfdx",
         "commands": "./lib/commands",
-        "topics": {
-            "force": {
-                "external": true,
-                "subtopics": {
-                    "lightning": {
-                        "external": true,
-                        "subtopics": {
-                            "lwc": {
-                                "description": "tools for Lightning web components in a Salesforce DX workspace",
-                                "longDescription": "Tools for Lightning web components in a Salesforce DX workspace.",
-                                "subtopics": {
-                                    "test": {
-                                        "description": "tools for unit testing Lightning web components in a Salesforce DX workspace",
-                                        "longDescription": "Tools for unit testing Lightning web components in a Salesforce DX workspace."
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
+        "node": "14.15.4",
+        "bin": "sfdx",
+        "plugins": [
+            "@salesforce/plugin-trust"
+        ],
         "devPlugins": [
             "@oclif/plugin-help",
             "@oclif/plugin-command-snapshot",
             "@salesforce/plugin-command-reference"
-        ]
+        ],
+        "topics": {
+            "cli": {
+                "description": "get information on the cli",
+                "subtopics": {
+                    "versions": {
+                        "description": "interact with CLI versions"
+                    },
+                    "tarballs": {
+                        "description": "interact with CLI tarballs"
+                    },
+                    "install": {
+                        "description": "utilities for CLI installation"
+                    },
+                    "release": {
+                        "description": "utilities for building CLI releases"
+                    },
+                    "schemas": {
+                        "description": "utilities for comparing command schemas"
+                    },
+                    "artifacts": {
+                        "description": "utilities for comparing plugin artifacts"
+                    }
+                }
+            },
+            "channel": {
+                "description": "interact with aws channels for clis"
+            },
+            "dependabot": {
+                "description": "interact with dependabot PRs"
+            },
+            "github": {
+                "subtopics": {
+                    "check": {
+                        "description": "check github status"
+                    }
+                },
+                "description": "interact with github issues"
+            },
+            "npm": {
+                "description": "release npm packages",
+                "subtopics": {
+                    "dependencies": {
+                        "description": "pin dependencies to a specific version in package.json"
+                    },
+                    "package": {
+                        "description": "work with npm projects"
+                    },
+                    "release": {
+                        "description": "validate npm releases"
+                    }
+                }
+            },
+            "repositories": {
+                "description": "list and get information about SalesforceCLI-owned repositories"
+            },
+            "typescript": {
+                "description": "test updates to typescript version"
+            }
+        }
     },
-    "repository": "salesforce/sfdx-plugin-lwc-test",
+    "repository": "salesforcecli/plugin-release-management",
     "scripts": {
-        "build": "sf-build",
-        "check-license-headers": "node ./scripts/checkLicenseHeaders.js",
+        "build": "wireit",
         "clean": "sf-clean",
         "clean-all": "sf-clean all",
-        "compile": "sf-compile",
+        "clean:lib": "shx rm -rf lib && shx rm -rf coverage && shx rm -rf .nyc_output && shx rm -f oclif.manifest.json",
+        "compile": "wireit",
         "docs": "sf-docs",
-        "format": "sf-format",
-        "lint": "sf-lint",
-        "postpack": "rm -f oclif.manifest.json",
-        "posttest": "yarn lint && yarn test:deprecation-policy && yarn test:command-reference",
+        "format": "wireit",
+        "lint": "wireit",
+        "oclif-artifacts": "oclif manifest",
+        "postpack": "shx rm -f oclif.manifest.json",
         "prepack": "sf-prepack",
-        "pretest": "sf-compile-test",
-        "test": "sf-test",
-        "test:command-reference": "./bin/dev commandreference:generate -p @salesforce/sfdx-plugin-lwc-test --erroronwarnings",
-        "test:deprecation-policy": "./bin/dev snapshot:compare",
-        "test:nuts": "nyc mocha \"./test/**/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
-        "version": "oclif-dev readme && git add README.md"
+        "prepare": "sf-install",
+        "test": "wireit",
+        "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
+        "test:only": "wireit",
+        "version": "oclif readme"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "wireit": {
+        "build": {
+            "dependencies": [
+                "compile",
+                "lint"
+            ]
+        },
+        "compile": {
+            "command": "tsc -p . --pretty --incremental",
+            "files": [
+                "src/**/*.ts",
+                "**/tsconfig.json",
+                "messages/**"
+            ],
+            "output": [
+                "lib/**",
+                "*.tsbuildinfo"
+            ],
+            "clean": "if-file-deleted"
+        },
+        "format": {
+            "command": "prettier --write \"+(src|test|schemas)/**/*.+(ts|js|json)|command-snapshot.json\"",
+            "files": [
+                "src/**/*.ts",
+                "test/**/*.ts",
+                "schemas/**/*.json",
+                "command-snapshot.json",
+                ".prettier*"
+            ],
+            "output": []
+        },
+        "lint": {
+            "command": "eslint src test --color --cache --cache-location .eslintcache",
+            "files": [
+                "src/**/*.ts",
+                "test/**/*.ts",
+                "messages/**",
+                "**/.eslint*",
+                "**/tsconfig.json"
+            ],
+            "output": []
+        },
+        "test:compile": {
+            "command": "tsc -p \"./test\" --pretty",
+            "files": [
+                "test/**/*.ts",
+                "**/tsconfig.json"
+            ],
+            "output": []
+        },
+        "test": {
+            "dependencies": [
+                "test:compile",
+                "test:only",
+                "test:command-reference",
+                "test:deprecation-policy",
+                "lint",
+                "test:json-schema"
+            ]
+        },
+        "test:only": {
+            "command": "nyc mocha \"test/**/*.test.ts\"",
+            "env": {
+                "FORCE_COLOR": "2"
+            },
+            "files": [
+                "test/**/*.ts",
+                "src/**/*.ts",
+                "**/tsconfig.json",
+                ".mocha*",
+                "!*.nut.ts",
+                ".nycrc"
+            ],
+            "output": []
+        },
+        "test:command-reference": {
+            "command": "\"./bin/dev\" commandreference:generate --erroronwarnings",
+            "files": [
+                "src/**/*.ts",
+                "messages/**",
+                "package.json"
+            ],
+            "output": [
+                "tmp/root"
+            ]
+        },
+        "test:deprecation-policy": {
+            "command": "\"./bin/dev\" snapshot:compare",
+            "files": [
+                "src/**/*.ts"
+            ],
+            "output": [],
+            "dependencies": [
+                "compile"
+            ]
+        },
+        "test:json-schema": {
+            "command": "\"./bin/dev\" schema:compare",
+            "files": [
+                "src/**/*.ts",
+                "schemas"
+            ],
+            "output": []
+        }
     },
     "sfdx": {
-        "publicKeyUrl": "https://developer.salesforce.com/media/salesforce-cli/security/@salesforce/sfdx-plugin-lwc-test/1.0.2.crt",
-        "signatureUrl": "https://developer.salesforce.com/media/salesforce-cli/security/@salesforce/sfdx-plugin-lwc-test/1.0.2.sig"
+        "publicKeyUrl": "https://developer.salesforce.com/media/salesforce-cli/security/@salesforce/plugin-release-management/3.16.8.crt",
+        "signatureUrl": "https://developer.salesforce.com/media/salesforce-cli/security/@salesforce/plugin-release-management/3.16.8.sig"
     }
 }
